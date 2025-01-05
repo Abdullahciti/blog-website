@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { createContext } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import UseWindowSize from "../hooks/UseWindowSize";
 
 const PostsContext = createContext({});
@@ -8,10 +8,28 @@ const PostsContext = createContext({});
 export const PostsProvider = ({ children }) => {
   const { width } = UseWindowSize();
 
+  const menuRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <PostsContext.Provider
       value={{
         width,
+        menuRef,
+        isMenuOpen,
+        setIsMenuOpen,
       }}
     >
       {children}

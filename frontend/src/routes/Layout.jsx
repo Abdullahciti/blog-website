@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 
 const Root = () => {
   return (
-    <div className="bg-slate-900 min-h-screen w-full">
+    <div className="bg-slate-900 min-h-screen w-full overflow-hidden">
       <Navbar />
       <div className="bg-yellow-900 p-6 flex justify-center items-center">
         <Outlet />

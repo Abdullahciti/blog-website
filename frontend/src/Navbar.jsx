@@ -1,10 +1,16 @@
 import { NavLink } from "react-router-dom";
 import UseWindowSize from "./hooks/UseWindowSize";
+import MobileScreen from "./components/navbar/MobileScreen";
+import LargeScreen from "./components/navbar/LargeScreen";
 import { getCount, increaseCount } from "./features/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useContext } from "react";
+import PostsContext from "./context/PostsContext";
 
 const Navbar = () => {
   const { width } = UseWindowSize();
+
+  const { setIsMenuOpen, isMenuOpen, menuRef } = useContext(PostsContext);
 
   const counter = useSelector(getCount);
   const dispatch = useDispatch();
@@ -24,15 +30,35 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Blog Website with redux
           </span>
+          <button
+            onClick={() => dispatch(increaseCount())}
+            className={`${
+              width < 950
+                ? "hidden"
+                : "text-white text-2xl flex items-center gap-3"
+            }`}
+          >
+            <span className="text-light text-sm">test the preformance</span>
+            {counter}
+          </button>
         </NavLink>
         <button
-          data-collapse-toggle="navbar-default"
+          ref={menuRef}
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-default"
-          aria-expanded="false"
+          className={
+            width >= 767
+              ? "hidden"
+              : `inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700  ${
+                  isMenuOpen
+                    ? "outline-none ring-2 ring-gray-400 dark:ring-gray-600"
+                    : ""
+                }`
+          }
+          onClick={() => {
+            setIsMenuOpen((prev) => !prev);
+            console.log(isMenuOpen);
+          }}
         >
-          <span className="sr-only">Open main menu</span>
           <svg
             className="w-5 h-5"
             aria-hidden="true"
@@ -49,58 +75,13 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <div
-          className={width > 767 ? "w-auto block" : "hidden w-full "}
-          id="navbar-default"
-        >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <NavLink
-                to={"/posts"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-700"
-                    : "block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white"
-                }
-                aria-current="page"
-              >
-                Posts
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"/users"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-700"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                }
-              >
-                Users
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"/addnewpost"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-700"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                }
-              >
-                Add new post
-              </NavLink>
-            </li>
-            <li>
-              <button
-                onClick={() => dispatch(increaseCount())}
-                className="text-white"
-              >
-                {counter}
-              </button>
-            </li>
-          </ul>
-        </div>
+        {width <= 767 ? (
+          <div className="relative w-full">
+            <MobileScreen />
+          </div>
+        ) : (
+          <LargeScreen />
+        )}
       </div>
     </nav>
   );
