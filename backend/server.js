@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 mongoose
   .connect(
-    process.env.MONGODB_URI || "mongodb://localhost:27017/redux-posts-app",
+    process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.dzb2b.mongodb.net/blog-website?retryWrites=true&w=majority&appName=Cluster0",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
