@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const USERS_URL = "http://localhost:3000/api/users";
+const USERS_URL = "https://blog-website-5nmr.onrender.com/api/users";
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await axios.get(USERS_URL);

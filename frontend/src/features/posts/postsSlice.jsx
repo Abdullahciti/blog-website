@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const POSTS_URL = "http://localhost:3000/api/posts";
+const POSTS_URL = "https://blog-website-5nmr.onrender.com/api/posts";
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const response = await axios.get(POSTS_URL);
