@@ -6,18 +6,19 @@ import { getCount, increaseCount } from "./features/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import PostsContext from "./context/PostsContext";
+import { FaBars } from "react-icons/fa6";
 
 const Navbar = () => {
   const { width } = UseWindowSize();
 
-  const { setIsMenuOpen, isMenuOpen, menuRef } = useContext(PostsContext);
+  const { isMenuOpen, toggelMenu } = useContext(PostsContext);
 
   const counter = useSelector(getCount);
   const dispatch = useDispatch();
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
         <NavLink
           href="#"
           className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -43,45 +44,19 @@ const Navbar = () => {
           </button>
         </NavLink>
         <button
-          ref={menuRef}
+          onClick={toggelMenu}
           type="button"
           className={
             width >= 767
               ? "hidden"
               : `inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700  ${
-                  isMenuOpen
-                    ? "outline-none ring-2 ring-gray-400 dark:ring-gray-600"
-                    : ""
+                  isMenuOpen ? "ring-2 ring-gray-400 dark:ring-gray-600" : ""
                 }`
           }
-          onClick={() => {
-            setIsMenuOpen((prev) => !prev);
-            console.log(isMenuOpen);
-          }}
         >
-          <svg
-            className="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            />
-          </svg>
+          <FaBars className="text-xl" />
         </button>
-        {width <= 767 ? (
-          <div className="relative w-full">
-            <MobileScreen />
-          </div>
-        ) : (
-          <LargeScreen />
-        )}
+        {width <= 767 ? <MobileScreen /> : <LargeScreen />}
       </div>
     </nav>
   );

@@ -25,7 +25,7 @@ export const updatePostOrReaction = createAsyncThunk(
   async (updateData, { rejectWithValue }) => {
     try {
       const { id, ...updates } = updateData; // Extract `id` and the rest of the updates
-      const response = await axios.patch(`${POSTS_URL}/${id}`, updates);
+      const response = await axios.patch(`${POSTS_URL}/dd${id}`, updates);
       return response.data; // Return the updated post
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
