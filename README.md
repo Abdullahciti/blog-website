@@ -39,25 +39,31 @@ A simple and functional blog website built to practice and enhance my skills in 
 
 1. **Clone the Repository:**  
    ```bash
-   git clone https://github.com/Abdullahciti/blog-website.git
-   cd blog-website
+      git clone https://github.com/Abdullahciti/blog-website.git
+      cd blog-website
 Install Dependencies:
 
 Install frontend dependencies:
-cd frontend
-npm install
+   
+      cd frontend
+      npm install
 
 Install backend dependencies:
-cd backend
-npm install
+   
+      cd backend
+      npm install
+
 Start the Development Server:
 
 Run the backend:
-cd backend
-node server.js
+
+      cd backend
+      node server.js
 
 Run the frontend:
-cd frontend
-npm run dev
+      
+      cd frontend
+      npm run dev
+      
 Open the App:
 Navigate to http://localhost:5173/ in your browser to see the project in action.
