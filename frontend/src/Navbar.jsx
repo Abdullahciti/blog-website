@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 import UseWindowSize from "./hooks/UseWindowSize";
 import MobileScreen from "./components/navbar/MobileScreen";
 import LargeScreen from "./components/navbar/LargeScreen";
-import { getCount, increaseCount } from "./features/posts/postsSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import { getCount, increaseCount } from "./features/posts/postsSlice";
+// import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import PostsContext from "./context/PostsContext";
 import { FaBars } from "react-icons/fa6";
@@ -13,8 +13,8 @@ const Navbar = () => {
 
   const { isMenuOpen, toggelMenu } = useContext(PostsContext);
 
-  const counter = useSelector(getCount);
-  const dispatch = useDispatch();
+  // const counter = useSelector(getCount);
+  // const dispatch = useDispatch();
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -31,7 +31,7 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Blog Website with redux
           </span>
-          <button
+          {/* <button
             onClick={() => dispatch(increaseCount())}
             className={`${
               width < 950
@@ -41,7 +41,7 @@ const Navbar = () => {
           >
             <span className="text-light text-sm">test the preformance</span>
             {counter}
-          </button>
+          </button> */}
         </NavLink>
         <button
           onClick={toggelMenu}

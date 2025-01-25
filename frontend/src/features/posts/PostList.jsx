@@ -46,7 +46,7 @@ const PostList = () => {
   }
 
   return (
-    <section className="flex flex-col ">
+    <section className="flex flex-col min-w-96 lg:w-4/6 mx-auto w-5/6">
       <h2 className="text-white font-bold text-2xl">Posts</h2>
       {renderedPosts}
     </section>
